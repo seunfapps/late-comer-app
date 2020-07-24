@@ -1,15 +1,16 @@
 package com.seunfapps.latecomer.entities;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 
 public class EmployeeEntryLog extends Base{
     private String name;
     private String email;
     private String address;
-    private DateTime arrivalTime;
+    private LocalTime arrivalTime;
     private double amountOwed;
 
-    public EmployeeEntryLog(String name, String email, String address, DateTime arrivalTime) {
+    public EmployeeEntryLog(String name, String email, String address, LocalTime arrivalTime) {
         this.name = name;
         this.email = email;
         this.address = address;
@@ -41,11 +42,11 @@ public class EmployeeEntryLog extends Base{
         this.address = address;
     }
 
-    public DateTime getArrivalTime() {
+    public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(DateTime arrivalTime) {
+    public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
