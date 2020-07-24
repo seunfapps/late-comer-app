@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotBlank;
 
-public class EmployeeRequest {
+public class EmployeeEntryLogRequest {
     private String id;
     @NotBlank
     private String name;

@@ -2,14 +2,14 @@ package com.seunfapps.latecomer.entities;
 
 import org.joda.time.DateTime;
 
-public class Employee extends Base{
+public class EmployeeEntryLog extends Base{
     private String name;
     private String email;
     private String address;
     private DateTime arrivalTime;
     private double amountOwed;
 
-    public Employee(String name, String email, String address, DateTime arrivalTime) {
+    public EmployeeEntryLog(String name, String email, String address, DateTime arrivalTime) {
         this.name = name;
         this.email = email;
         this.address = address;
