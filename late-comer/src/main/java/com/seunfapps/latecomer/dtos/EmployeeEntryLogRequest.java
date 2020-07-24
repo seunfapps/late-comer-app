@@ -1,6 +1,7 @@
 package com.seunfapps.latecomer.dtos;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 
 import javax.validation.constraints.NotBlank;
 
@@ -12,7 +13,7 @@ public class EmployeeEntryLogRequest {
     private String email;
     private String address;
 
-    private DateTime arrivalTime;
+    private LocalTime arrivalTime;
 
     public String getId() {
         return id;
@@ -46,11 +47,11 @@ public class EmployeeEntryLogRequest {
         this.address = address;
     }
 
-    public DateTime getArrivalTime() {
+    public LocalTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(DateTime arrivalTime) {
+    public void setArrivalTime(LocalTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }
