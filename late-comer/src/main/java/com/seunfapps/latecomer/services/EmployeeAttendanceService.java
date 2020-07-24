@@ -1,10 +1,10 @@
 package com.seunfapps.latecomer.services;
 
 import com.seunfapps.latecomer.dtos.EmployeeEntryLogRequest;
-import com.seunfapps.latecomer.entities.EmployeeEntryLog;
+import com.seunfapps.latecomer.entities.EmployeeAttendance;
 import com.seunfapps.latecomer.exceptions.ResourceNotFoundException;
-import com.seunfapps.latecomer.repositories.EmployeeEntryLogRepository;
-import com.seunfapps.latecomer.utilities.EmployeeEntryLogUtil;
+import com.seunfapps.latecomer.repositories.EmployeeAttendanceRepository;
+import com.seunfapps.latecomer.utilities.EmployeeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,40 +12,41 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeEntryLogService {
+public class EmployeeAttendanceService {
     @Autowired
-    private EmployeeEntryLogRepository repository;
+    private EmployeeAttendanceRepository repository;
 
-    public List<EmployeeEntryLog> findAll(){
+    public List<EmployeeAttendance> findAll(){
         return repository.findAll();
     }
 
-    public Optional<EmployeeEntryLog> findById(String id){
+    public Optional<EmployeeAttendance> findById(String id){
         return repository.findById(id);
     }
 
-    public EmployeeEntryLog create (EmployeeEntryLogRequest request){
-        EmployeeEntryLog employeeEntryLog = new EmployeeEntryLog(
+    public EmployeeAttendance create (EmployeeEntryLogRequest request){
+
+        EmployeeAttendance employeeAttendance = new EmployeeAttendance(
             request.getName(),
             request.getEmail(),
             request.getAddress(),
             request.getArrivalTime()
         );
-        employeeEntryLog.setAmountOwed(EmployeeEntryLogUtil.calculateAmountOwed(employeeEntryLog.getArrivalTime()));
+        employeeAttendance.setAmountOwed(EmployeeUtil.calculateAmountOwed(employeeAttendance.getArrivalTime()));
 
-        return repository.save(employeeEntryLog);
+        return repository.save(employeeAttendance);
     }
 
-    public EmployeeEntryLog update(String id, EmployeeEntryLogRequest request){
-        Optional<EmployeeEntryLog> employeeEntryLog = findById(id);
+    public EmployeeAttendance update(String id, EmployeeEntryLogRequest request){
+        Optional<EmployeeAttendance> employeeEntryLog = findById(id);
 
         if(employeeEntryLog.isPresent()){
-            EmployeeEntryLog entryLog = employeeEntryLog.get();
+            EmployeeAttendance entryLog = employeeEntryLog.get();
             entryLog.setName(request.getName());
             entryLog.setEmail(request.getEmail());
             entryLog.setAddress(request.getAddress());
             entryLog.setArrivalTime(request.getArrivalTime());
-            entryLog.setAmountOwed(EmployeeEntryLogUtil.calculateAmountOwed(entryLog.getArrivalTime()));
+            entryLog.setAmountOwed(EmployeeUtil.calculateAmountOwed(entryLog.getArrivalTime()));
 
             return repository.save(entryLog);
         }
