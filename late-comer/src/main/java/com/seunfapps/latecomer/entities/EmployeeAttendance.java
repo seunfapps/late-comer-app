@@ -10,10 +10,8 @@ public class EmployeeAttendance extends Base{
     private LocalTime arrivalTime;
     private double amountOwed;
 
-    public EmployeeAttendance(String name, String email, String address, LocalTime arrivalTime) {
+    public EmployeeAttendance(String name, LocalTime arrivalTime) {
         this.name = name;
-        this.email = email;
-        this.address = address;
         this.arrivalTime = arrivalTime;
         this.createdOn = new DateTime();
     }
@@ -26,22 +24,6 @@ public class EmployeeAttendance extends Base{
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public LocalTime getArrivalTime() {
         return arrivalTime;
     }
@@ -50,11 +32,4 @@ public class EmployeeAttendance extends Base{
         this.arrivalTime = arrivalTime;
     }
 
-    public double getAmountOwed() {
-        return amountOwed;
-    }
-
-    public void setAmountOwed(double amountOwed) {
-        this.amountOwed = amountOwed;
-    }
 }

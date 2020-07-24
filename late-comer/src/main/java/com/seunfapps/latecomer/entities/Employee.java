@@ -1,26 +1,19 @@
-package com.seunfapps.latecomer.dtos;
+package com.seunfapps.latecomer.entities;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
-import javax.validation.constraints.NotBlank;
-
-public class EmployeeEntryLogRequest {
-    private String id;
-    @NotBlank
+public class Employee extends Base{
     private String name;
-    @NotBlank
     private String email;
     private String address;
+    private double amountOwed;
 
-    private LocalTime arrivalTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Employee(String name, String email, String address) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.createdOn = new DateTime();
     }
 
     public String getName() {
@@ -47,11 +40,12 @@ public class EmployeeEntryLogRequest {
         this.address = address;
     }
 
-    public LocalTime getArrivalTime() {
-        return arrivalTime;
+    public double getAmountOwed() {
+        return amountOwed;
     }
 
-    public void setArrivalTime(LocalTime arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setAmountOwed(double amountOwed) {
+        this.amountOwed = amountOwed;
     }
+
 }

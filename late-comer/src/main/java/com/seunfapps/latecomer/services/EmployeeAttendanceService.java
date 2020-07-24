@@ -1,6 +1,6 @@
 package com.seunfapps.latecomer.services;
 
-import com.seunfapps.latecomer.dtos.EmployeeEntryLogRequest;
+import com.seunfapps.latecomer.dtos.EmployeeAttendanceRequest;
 import com.seunfapps.latecomer.entities.EmployeeAttendance;
 import com.seunfapps.latecomer.exceptions.ResourceNotFoundException;
 import com.seunfapps.latecomer.repositories.EmployeeAttendanceRepository;
@@ -16,6 +16,9 @@ public class EmployeeAttendanceService {
     @Autowired
     private EmployeeAttendanceRepository repository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     public List<EmployeeAttendance> findAll(){
         return repository.findAll();
     }
@@ -24,31 +27,29 @@ public class EmployeeAttendanceService {
         return repository.findById(id);
     }
 
-    public EmployeeAttendance create (EmployeeEntryLogRequest request){
+    public EmployeeAttendance create (EmployeeAttendanceRequest request){
 
         EmployeeAttendance employeeAttendance = new EmployeeAttendance(
             request.getName(),
-            request.getEmail(),
-            request.getAddress(),
             request.getArrivalTime()
         );
-        employeeAttendance.setAmountOwed(EmployeeUtil.calculateAmountOwed(employeeAttendance.getArrivalTime()));
 
-        return repository.save(employeeAttendance);
+        EmployeeAttendance response = repository.save(employeeAttendance);
+        employeeService.updateAmountOwed(request);
+        return response;
     }
 
-    public EmployeeAttendance update(String id, EmployeeEntryLogRequest request){
+    public EmployeeAttendance update(String id, EmployeeAttendanceRequest request){
         Optional<EmployeeAttendance> employeeEntryLog = findById(id);
 
         if(employeeEntryLog.isPresent()){
             EmployeeAttendance entryLog = employeeEntryLog.get();
             entryLog.setName(request.getName());
-            entryLog.setEmail(request.getEmail());
-            entryLog.setAddress(request.getAddress());
             entryLog.setArrivalTime(request.getArrivalTime());
-            entryLog.setAmountOwed(EmployeeUtil.calculateAmountOwed(entryLog.getArrivalTime()));
 
-            return repository.save(entryLog);
+            EmployeeAttendance response = repository.save(entryLog);
+            employeeService.updateAmountOwed(request);
+            return response;
         }
         else{
             throw new ResourceNotFoundException("Employee with id: "+id+" not found");
