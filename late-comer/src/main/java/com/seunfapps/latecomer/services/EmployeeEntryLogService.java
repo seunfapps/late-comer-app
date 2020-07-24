@@ -2,6 +2,7 @@ package com.seunfapps.latecomer.services;
 
 import com.seunfapps.latecomer.dtos.EmployeeEntryLogRequest;
 import com.seunfapps.latecomer.entities.EmployeeEntryLog;
+import com.seunfapps.latecomer.exceptions.ResourceNotFoundException;
 import com.seunfapps.latecomer.repositories.EmployeeEntryLogRepository;
 import com.seunfapps.latecomer.utilities.EmployeeEntryLogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class EmployeeEntryLogService {
             return repository.save(entryLog);
         }
         else{
-            return null;
+            throw new ResourceNotFoundException("Employee with id: "+id+" not found");
         }
     }
 
