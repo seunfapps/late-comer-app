@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 public class Base {
     @Id
     private String id;
-    private DateTime createdOn;
+    public DateTime createdOn;
 
     public String getId() {
         return id;
