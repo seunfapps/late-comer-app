@@ -5,6 +5,7 @@ import com.seunfapps.latecomer.entities.Employee;
 import com.seunfapps.latecomer.entities.EmployeeAttendance;
 import com.seunfapps.latecomer.exceptions.ResourceNotFoundException;
 import com.seunfapps.latecomer.repositories.EmployeeAttendanceRepository;
+import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class EmployeeAttendanceService {
         if(!employee.isPresent())
             throw new ResourceNotFoundException("Employee with id: "+request.getEmployeeId()+" not found");
 
-        EmployeeAttendance employeeAttendance = new EmployeeAttendance(request.getEmployeeId(),request.getArrivalTime());
+        EmployeeAttendance employeeAttendance = new EmployeeAttendance(request.getEmployeeId(), request.getArrivalTime());
 
         repository.save(employeeAttendance);
         return employeeService.updateAmountOwed(request,employee.get());

@@ -26,7 +26,7 @@ public class EmployeeService {
     }
 
     public Employee create(EmployeeRequest request){
-        if(repository.findByEmail(request.getEmail()) != null)
+        if(repository.findByEmail(request.getEmail()).size() != 0)
             throw new ResourceAlreadyExistsException("Employee with email: "+request.getEmail()+" already exists");
 
         Employee employee = new Employee(request.getName(),request.getEmail(),request.getAddress());

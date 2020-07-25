@@ -3,15 +3,13 @@ package com.seunfapps.latecomer.dtos;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class EmployeeAttendanceRequest {
     @NotNull
     private String employeeId;
     @NotNull
-    private LocalTime arrivalTime;
+    private String arrivalTime;
 
 
     public String getEmployeeId() {
@@ -22,11 +20,11 @@ public class EmployeeAttendanceRequest {
         this.employeeId = employeeId;
     }
 
-    public LocalTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

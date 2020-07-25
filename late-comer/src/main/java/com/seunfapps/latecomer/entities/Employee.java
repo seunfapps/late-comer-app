@@ -15,7 +15,6 @@ public class Employee extends Base{
         this.name = name;
         this.email = email;
         this.address = address;
-        this.createdOn = new DateTime();
     }
 
     public String getName() {

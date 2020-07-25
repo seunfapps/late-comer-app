@@ -9,13 +9,12 @@ public class EmployeeAttendance extends Base{
     private String name;
     private String email;
     private String address;
-    private LocalTime arrivalTime;
+    private String arrivalTime;
     private double amountOwed;
 
-    public EmployeeAttendance(String name, LocalTime arrivalTime) {
+    public EmployeeAttendance(String name, String arrivalTime) {
         this.name = name;
         this.arrivalTime = arrivalTime;
-        this.createdOn = new DateTime();
     }
 
     public String getName() {
@@ -26,11 +25,11 @@ public class EmployeeAttendance extends Base{
         this.name = name;
     }
 
-    public LocalTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

@@ -21,7 +21,7 @@ public class EmployeeAttendanceController {
     private EmployeeAttendanceService service;
 
     @PostMapping
-    public ResponseEntity<Employee> create (@Validated @RequestBody EmployeeAttendanceRequest request){
+    public ResponseEntity<Employee> create (@RequestBody EmployeeAttendanceRequest request){
         return new ResponseEntity<>(service.create(request), HttpStatus.CREATED);
     }
     @GetMapping
