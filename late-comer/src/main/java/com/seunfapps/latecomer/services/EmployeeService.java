@@ -2,12 +2,18 @@ package com.seunfapps.latecomer.services;
 
 import com.seunfapps.latecomer.dtos.EmployeeAttendanceRequest;
 import com.seunfapps.latecomer.dtos.EmployeeRequest;
+import com.seunfapps.latecomer.dtos.Pagination;
+import com.seunfapps.latecomer.dtos.PagingRequest;
 import com.seunfapps.latecomer.entities.Employee;
 import com.seunfapps.latecomer.exceptions.ResourceAlreadyExistsException;
 import com.seunfapps.latecomer.exceptions.ResourceNotFoundException;
 import com.seunfapps.latecomer.repositories.EmployeeRepository;
 import com.seunfapps.latecomer.utilities.EmployeeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +23,24 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository repository;
 
-    public List<Employee> findAll(){
-        return repository.findAll();
+    public Pagination<Employee> findAll(PagingRequest paging){
+        Pageable pageable;
+
+        if(paging.getSortBy() == null || paging.getSortBy().trim().length() == 0)
+            pageable = PageRequest.of(paging.getNumber(), paging.getSize());
+        else if(paging.getSortDirection().equalsIgnoreCase("desc"))
+            pageable = PageRequest.of(paging.getNumber(),paging.getSize(), Sort.by(paging.getSortBy()).descending());
+        else
+            pageable = PageRequest.of(paging.getNumber(),paging.getSize(), Sort.by(paging.getSortBy()).ascending());
+
+        Page<Employee> result;
+
+        if(paging.getSearchParam() == null || paging.getSearchParam().trim().length() == 0)
+            result = repository.findAll(pageable);
+        else
+            result = repository.findAllBySearch(paging.getSearchParam(), pageable);
+
+        return new Pagination<Employee>(result.getNumberOfElements(), result.getContent());
     }
 
     public Optional<Employee> findById(String id){

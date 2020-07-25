@@ -2,6 +2,8 @@ package com.seunfapps.latecomer.api.controllers;
 
 import com.seunfapps.latecomer.dtos.EmployeeAttendanceRequest;
 import com.seunfapps.latecomer.dtos.EmployeeRequest;
+import com.seunfapps.latecomer.dtos.Pagination;
+import com.seunfapps.latecomer.dtos.PagingRequest;
 import com.seunfapps.latecomer.entities.Employee;
 import com.seunfapps.latecomer.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,10 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getAll (){
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+    public ResponseEntity<Pagination<Employee>> getAll (@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize,
+                                                        @RequestParam(required = false) String sortBy, @RequestParam(required = false) String sortDirection,
+                                                        @RequestParam(required = false) String searchParam){
+        return new ResponseEntity<>(service.findAll(new PagingRequest(pageNumber,pageSize,sortBy,sortDirection,searchParam)), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
