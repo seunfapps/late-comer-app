@@ -9,7 +9,7 @@ public class EmployeeAttendanceRequest {
     @NotNull
     private String employeeId;
     @NotNull
-    private String arrivalTime;
+    private String arrivalTime; //example '08:02:58' == 2 minutes passed 8
 
 
     public String getEmployeeId() {

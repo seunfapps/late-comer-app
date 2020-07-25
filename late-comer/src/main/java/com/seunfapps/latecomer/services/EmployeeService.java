@@ -34,7 +34,6 @@ public class EmployeeService {
             pageable = PageRequest.of(paging.getNumber(),paging.getSize(), Sort.by(paging.getSortBy()).ascending());
 
         Page<Employee> result;
-        List<Employee> emp = null;
         if(paging.getSearchParam() == null || paging.getSearchParam().trim().length() == 0)
             result = repository.findAll(pageable);
         else

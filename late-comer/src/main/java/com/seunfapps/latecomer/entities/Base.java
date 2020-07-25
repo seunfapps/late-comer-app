@@ -1,6 +1,5 @@
 package com.seunfapps.latecomer.entities;
 
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 
 public class Base {

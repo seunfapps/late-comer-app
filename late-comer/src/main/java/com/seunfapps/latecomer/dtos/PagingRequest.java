@@ -4,7 +4,7 @@ public class PagingRequest {
     private Integer number;
     private Integer size;
     private String sortBy;
-    private String sortDirection;
+    private String sortDirection; //asc or desc
     private String searchParam;
 
     public PagingRequest(Integer number, Integer size, String sortBy, String sortDirection, String searchParam) {
