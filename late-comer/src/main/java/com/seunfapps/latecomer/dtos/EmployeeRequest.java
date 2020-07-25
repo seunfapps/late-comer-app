@@ -1,21 +1,26 @@
-package com.seunfapps.latecomer.entities;
+package com.seunfapps.latecomer.dtos;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class Employee extends Base{
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+public class EmployeeRequest {
+    private String id;
+    @NotBlank
     private String name;
+    @NotBlank
+    @Email
     private String email;
     private String address;
     private double amountOwed;
 
-    public Employee(String name, String email, String address) {
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.createdOn = new DateTime();
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,5 +54,4 @@ public class Employee extends Base{
     public void setAmountOwed(double amountOwed) {
         this.amountOwed = amountOwed;
     }
-
 }

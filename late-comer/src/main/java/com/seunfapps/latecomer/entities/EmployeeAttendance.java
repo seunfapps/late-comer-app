@@ -2,7 +2,9 @@ package com.seunfapps.latecomer.entities;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class EmployeeAttendance extends Base{
     private String name;
     private String email;
