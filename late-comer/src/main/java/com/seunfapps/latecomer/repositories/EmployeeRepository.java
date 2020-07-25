@@ -15,6 +15,6 @@ import java.util.List;
 public interface EmployeeRepository extends PagingAndSortingRepository<Employee,String> {
     List<Employee> findByEmail(String email);
 
-    @Query( value = "{'name' : ?0,'email':?0,'address': ?0}")
+    @Query("{$or: [{'name' : {$regex: ?0, $options : 'i'}}, {'email' : {$regex: ?0, $options : 'i'}}, {'address': {$regex: ?0, $options : 'i'}}]}")
     Page<Employee> findAllBySearch(String searchParam, Pageable pageable);
 }

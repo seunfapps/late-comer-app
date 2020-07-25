@@ -27,9 +27,9 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException (Exception e){
-        ErrorResponse response = new ErrorResponse("0003", "Something has horribly gone wrong");
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Object> handleException (Exception e){
+//        ErrorResponse response = new ErrorResponse("0003", "Something has gone horribly wrong");
+//        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }
