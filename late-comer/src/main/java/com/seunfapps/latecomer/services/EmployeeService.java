@@ -1,6 +1,7 @@
 package com.seunfapps.latecomer.services;
 
 import com.seunfapps.latecomer.dtos.EmployeeAttendanceRequest;
+import com.seunfapps.latecomer.dtos.EmployeeRequest;
 import com.seunfapps.latecomer.entities.Employee;
 import com.seunfapps.latecomer.exceptions.ResourceAlreadyExistsException;
 import com.seunfapps.latecomer.exceptions.ResourceNotFoundException;
@@ -24,35 +25,16 @@ public class EmployeeService {
         return repository.findById(id);
     }
 
-    public void updateAmountOwed (EmployeeAttendanceRequest request){
-        List<Employee> employees = repository.findByEmail(request.getEmail());
-        Employee employee;
-        if(employees == null){
-            //new employee
-            employee = new Employee(
-                    request.getName(),
-                    request.getEmail(),
-                    request.getAddress()
-            );
-
-            employee.setAmountOwed(EmployeeUtil.calculateAmountOwed(request.getArrivalTime()));
-        }else {
-            employee = employees.get(0);
-            employee.setAmountOwed(employee.getAmountOwed() + EmployeeUtil.calculateAmountOwed(request.getArrivalTime()));
-        }
-
-        repository.save(employee);
-    }
-
-    public Employee create(EmployeeAttendanceRequest request){
+    public Employee create(EmployeeRequest request){
         if(repository.findByEmail(request.getEmail()) != null)
             throw new ResourceAlreadyExistsException("Employee with email: "+request.getEmail()+" already exists");
+
         Employee employee = new Employee(request.getName(),request.getEmail(),request.getAddress());
-        employee.setAmountOwed(EmployeeUtil.calculateAmountOwed(request.getArrivalTime()));
+        employee.setAmountOwed(0);
 
         return repository.save(employee);
     }
-    public Employee update(String id, EmployeeAttendanceRequest request){
+    public Employee update(String id, EmployeeRequest request){
         Optional<Employee> employeeOptional = findById(id);
 
         if(employeeOptional.isPresent()){
@@ -66,6 +48,11 @@ public class EmployeeService {
         else{
             throw new ResourceNotFoundException("Employee with id: "+id+" not found");
         }
+    }
+    public Employee updateAmountOwed (EmployeeAttendanceRequest request, Employee employee){
+        employee.setAmountOwed(employee.getAmountOwed() + EmployeeUtil.calculateAmountOwed(request.getArrivalTime()));
+
+        return repository.save(employee);
     }
 
     public void delete (String id){
