@@ -6,22 +6,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class EmployeeRequest {
-    private String id;
     @NotBlank
     private String name;
     @NotBlank
     @Email
     private String email;
     private String address;
-    private double amountOwed;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -47,11 +37,4 @@ public class EmployeeRequest {
         this.address = address;
     }
 
-    public double getAmountOwed() {
-        return amountOwed;
-    }
-
-    public void setAmountOwed(double amountOwed) {
-        this.amountOwed = amountOwed;
-    }
 }
